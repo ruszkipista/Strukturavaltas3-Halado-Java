@@ -1,0 +1,26 @@
+# start with: 
+# docker-compose up
+version: '3.8'
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mariadb://db/crudtemplate'
+      SPRING_DATASOURCE_USERNAME: crudtemplate
+      SPRING_DATASOURCE_PASSWORD: crudtemplate
+
+  db:
+    image: mariadb
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MARIADB_DATABASE: crudtemplate
+      MARIADB_USER: crudtemplate
+      MARIADB_PASSWORD: crudtemplate
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'

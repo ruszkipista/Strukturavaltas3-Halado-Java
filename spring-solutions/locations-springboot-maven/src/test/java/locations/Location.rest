@@ -1,0 +1,120 @@
+@baseUrl = http://localhost:8080
+
+### create one location
+POST {{baseUrl}}/locations HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Neverland",
+    "latitude": -1,
+    "longitude": 1
+}
+
+# expect return code 201 (Created)
+# expect the same location with a unique ID in response body
+
+
+### create another location
+POST {{baseUrl}}/locations HTTP/1.1
+content-type: application/json
+
+{"name": "Sohaorszag", "latitude": 2, "longitude": -2}
+
+# expect return code 201 (Created)
+# expect the same location with a unique ID in response body
+
+
+### read all locations
+GET {{baseUrl}}/locations HTTP/1.1
+
+# expect return code 200 (OK)
+# expect both locations in response body
+
+
+### read one location by ID in XML format
+GET {{baseUrl}}/locations/2 HTTP/1.1
+Accept: application/xml
+
+# expect in response body the location with ID=2
+# <locationDto>
+#   <id>2</id>
+#   <name>Debrecen</name>
+# </locationDto>
+
+### read one location by ID in JSON format
+GET {{baseUrl}}/locations/2 HTTP/1.1
+
+# expect in response body the location with ID=2
+# { "id": 2, "name": "Debrecen" }
+
+
+### read one location by ID - FAILS - no body
+GET {{baseUrl}}/locations/99 HTTP/1.1
+
+# expect return code 404 - Not Found
+# { "timestamp": "2023-03-22T20:05:45.616+00:00",
+#   "status": 404,
+#   "error": "Not Found",
+#   "path": "/locations/99"
+# }
+
+
+### update one location by ID
+PUT {{baseUrl}}/locations/2 HTTP/1.1
+content-type: application/json
+
+{"name":"Kiskunhalas"}
+
+# expect return code 200 (OK)
+# expect location with ID=2 in response body
+# name has changed to Kiskunhalas, the rest of values are unchanged
+
+
+### validation error on update one location by ID
+PUT {{baseUrl}}/locations/2 HTTP/1.1
+content-type: application/json
+
+{   "name":"YYY",
+    "latitude": -91,
+    "longitude": 1
+}
+
+
+### delete one location by ID
+DELETE  {{baseUrl}}/locations/99 HTTP/1.1
+
+### validate location creation
+POST {{baseUrl}}/locations HTTP/1.1
+content-type: application/json
+
+{
+    "name": "",
+    "latitude": -1,
+    "longitude": 1
+}
+
+# expect
+# HTTP/1.1 406 
+# Content-Type: application/problem+json
+# Transfer-Encoding: chunked
+# Date: Tue, 28 Mar 2023 15:55:32 GMT
+# Connection: close
+
+# {
+#   "type": "locations/request-not-valid",
+#   "title": "Not Acceptable",
+#   "status": 406,
+#   "detail": "Validation failed for argument [0] in public org.springframework.http.ResponseEntity<locations.model.LocationDto> locations.controller.LocationsController.createLocation(locations.model.LocationCreateCommand,org.springframework.web.util.UriComponentsBuilder): [Field error in object 'locationCreateCommand' on field 'name': rejected value []; codes [NotBlank.locationCreateCommand.name,NotBlank.name,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [locationCreateCommand.name,name]; arguments []; default message [name]]; default message [name can not be blank]] ",
+#   "instance": "/locations",
+#   "properties": {
+#     "violations": [
+#       {
+#         "field": "name",
+#         "message": "name can not be blank"
+#       }
+#     ]
+#   }
+# }
+
+###
+GET {{baseUrl}}/activities HTTP/1.1

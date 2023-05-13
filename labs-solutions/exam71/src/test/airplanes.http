@@ -1,0 +1,27 @@
+
+###
+GET http://localhost:8080/api/airplanes
+Accept: application/json
+
+###
+POST http://localhost:8080/api/airplanes/1/routes
+Content-Type: application/json
+
+{
+  "departureCity": "Budapest",
+  "arrivalCity": "New York",
+  "dateOfFlight": "2023-06-15"
+}
+
+###
+POST http://localhost:8080/api/airplanes
+Content-Type: application/json
+
+{
+  "airplaneType": "BOEING_787",
+  "ownerAirline": "Lufthansa"
+}
+
+###
+PUT http://localhost:8080/api/airplanes/1/routes/52
+Content-Type: application/json

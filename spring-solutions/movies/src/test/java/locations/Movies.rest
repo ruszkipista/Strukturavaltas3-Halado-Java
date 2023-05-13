@@ -1,0 +1,98 @@
+@baseUrl = http://localhost:8080/api
+
+### create one movie
+POST {{baseUrl}}/movies HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Movie A",
+  "lengthInMins": 128,
+  "ratings": [{"value":5},{"value":3}]
+}
+
+# expect return code 201 (Created)
+# expect in body the same movie with a unique ID and calculated average rating
+
+
+### create another movie
+POST {{baseUrl}}/movies HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Movie B",
+  "lengthInMins": 95,
+  "ratings": [{"value":3},{"value":4},{"value":1}]
+}
+
+# expect return code 201 (Created)
+# expect in body the same movie with a unique ID and calculated average rating
+
+
+### read all movies
+GET {{baseUrl}}/movies HTTP/1.1
+
+# expect return code 200 (OK)
+# expect both movies in response body
+
+
+### read movies with "ie" in the title
+GET {{baseUrl}}/movies?nameFragment=ie HTTP/1.1
+
+# expect return code 200 (OK)
+# expect both movies in response body
+
+
+### read movies with "B" in the title
+GET {{baseUrl}}/movies?nameFragment=B HTTP/1.1
+
+# expect return code 200 (OK)
+# expect both movies in response body
+
+
+### read one movie by ID
+GET {{baseUrl}}/movies/2 HTTP/1.1
+
+# expect in response body the movie with ID=2
+#   {"id":2, "name":"Debrecen"}
+
+### read one movie by ID
+GET {{baseUrl}}/movies/99 HTTP/1.1
+
+# expect return code 404 - Not Found
+# { "timestamp": "...",
+#   "status": 404,
+#   "error": "Not Found",
+#   "path": "/api/movies/99"
+# }
+
+
+### update one movie by ID
+PUT {{baseUrl}}/movies/2 HTTP/1.1
+content-type: application/json
+
+{"title":"Movie B aka C"}
+
+# expect return code 200 (OK)
+# expect movie with ID=2 in response body
+# name has changed to Kiskunhalas, the rest of values are unchanged
+
+### delete one movie by ID
+DELETE  {{baseUrl}}/movies/2 HTTP/1.1
+
+# expect return code 204 (No Content success)
+# expect the give movie removed from list of all movies
+
+### read ratings of a movie by ID
+GET {{baseUrl}}/movies/2/ratings HTTP/1.1
+
+# expect return code 200 (OK)
+# expect in body list of ratings of given movie
+
+### add a rating to a movie by ID
+POST {{baseUrl}}/movies/2/ratings HTTP/1.1
+content-type: application/json
+
+{"value": 2}
+
+# expect return code 201 (Created)
+# expect in body all the ratins of the same movie

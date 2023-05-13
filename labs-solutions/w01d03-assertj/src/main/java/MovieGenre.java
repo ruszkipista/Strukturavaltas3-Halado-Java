@@ -1,0 +1,3 @@
+public enum MovieGenre {
+    CLASSIC, WESTERN, ROMANTIC, COMEDY, DRAMA, SCIFI, ACTION;
+}

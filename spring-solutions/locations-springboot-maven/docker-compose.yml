@@ -1,0 +1,26 @@
+# start with: 
+# docker-compose up
+version: '3.8'
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mariadb://db/locations'
+      SPRING_DATASOURCE_USERNAME: locations
+      SPRING_DATASOURCE_PASSWORD: locations
+
+  db:
+    image: mariadb
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: locations
+      MYSQL_USER: locations
+      MYSQL_PASSWORD: locations
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'

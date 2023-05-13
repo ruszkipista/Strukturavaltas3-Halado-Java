@@ -1,0 +1,7 @@
+TRUNCATE TABLE locations;
+INSERT INTO locations (location_name,latitude,longitude) VALUES
+('Budapest',47.497912,19.040235),
+('Debrecen',47.52997,21.63916),
+('NagyonHideg',66.58,21.0),
+('Afrika',0.0,20.0),
+('Dermeszto',70.0,70.0);

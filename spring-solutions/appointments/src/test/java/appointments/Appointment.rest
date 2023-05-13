@@ -1,0 +1,106 @@
+@baseUrl = http://localhost:8080
+
+### create one appointment
+POST {{baseUrl}}/appointments HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Neverland",
+    "latitude": -1,
+    "longitude": 1
+}
+
+# expect return code 201 (Created)
+# expect the same appointment with a unique ID in response body
+
+
+### create another appointment
+POST {{baseUrl}}/appointments HTTP/1.1
+content-type: application/json
+
+{"name": "Sohaorszag", "latitude": 2, "longitude": -2}
+
+# expect return code 201 (Created)
+# expect the same appointment with a unique ID in response body
+
+
+### read all appointments
+GET {{baseUrl}}/appointments HTTP/1.1
+
+# expect return code 200 (OK)
+# expect both appointments in response body
+
+
+### read one appointment by ID in XML format
+GET {{baseUrl}}/appointments/2 HTTP/1.1
+Accept: application/xml
+
+# expect in response body the appointment with ID=2
+# <appointmentDto>
+#   <id>2</id>
+#   <name>Debrecen</name>
+# </appointmentDto>
+
+### read one appointment by ID in JSON format
+GET {{baseUrl}}/appointments/2 HTTP/1.1
+
+# expect in response body the appointment with ID=2
+# { "id": 2, "name": "Debrecen" }
+
+
+### read one appointment by ID - FAILS - no body
+GET {{baseUrl}}/appointments/99 HTTP/1.1
+
+# expect return code 404 - Not Found
+# { "timestamp": "2023-03-22T20:05:45.616+00:00",
+#   "status": 404,
+#   "error": "Not Found",
+#   "path": "/appointments/99"
+# }
+
+
+### update one appointment by ID
+PUT {{baseUrl}}/appointments/2 HTTP/1.1
+content-type: application/json
+
+{"name":"Kiskunhalas"}
+
+# expect return code 200 (OK)
+# expect appointment with ID=2 in response body
+# name has changed to Kiskunhalas, the rest of values are unchanged
+
+### delete one appointment by ID
+DELETE  {{baseUrl}}/appointments/2 HTTP/1.1
+
+### validate appointment creation
+POST {{baseUrl}}/appointments HTTP/1.1
+content-type: application/json
+
+{
+    "name": "",
+    "latitude": -1,
+    "longitude": 1
+}
+
+# expect
+# HTTP/1.1 406 
+# Content-Type: application/problem+json
+# Transfer-Encoding: chunked
+# Date: Tue, 28 Mar 2023 15:55:32 GMT
+# Connection: close
+
+# {
+#   "type": "appointments/request-not-valid",
+#   "title": "Not Acceptable",
+#   "status": 406,
+#   "detail": "Validation failed for ...",
+#   "instance": "/appointments",
+#   "properties": {
+#     "violations": [
+#       {
+#         "field": "name",
+#         "message": "name can not be blank"
+#       }
+#     ]
+#   }
+# }

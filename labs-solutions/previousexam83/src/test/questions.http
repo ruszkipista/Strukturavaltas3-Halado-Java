@@ -1,0 +1,37 @@
+### Create member
+
+POST http://localhost:8080/api/members
+Content-Type: application/json
+
+{
+  "name": "John Doe"
+}
+
+### List members
+
+GET http://localhost:8080/api/members
+
+### Create question
+
+POST http://localhost:8080/api/members/1/questions
+Content-Type: application/json
+
+{
+  "questionText": "Why is Spring Boot so popular?"
+}
+
+### List questions
+
+GET http://localhost:8080/api/members/1/questions
+
+### Answer question
+PUT http://localhost:8080/api/members/1/questions/1/answer
+Content-Type: application/json
+
+{
+  "answerText": "Because it is a good framework for creating Java microservices."
+}
+
+### Lekérdezés
+GET http://localhost:8080/api/pairs
+

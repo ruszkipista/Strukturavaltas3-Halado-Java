@@ -1,0 +1,98 @@
+@baseUrl = http://localhost:8080/api
+
+### create one entity
+POST {{baseUrl}}/singles HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Example One"
+}
+
+# expect return code 201 (Created)
+# expect the same entity with a unique ID in response body
+
+
+### create another entity
+POST {{baseUrl}}/singles HTTP/1.1
+content-type: application/json
+
+{"name": "Example Two"}
+
+# expect return code 201 (Created)
+# expect the same entity with a unique ID in response body
+
+
+### read all singles
+GET {{baseUrl}}/singles HTTP/1.1
+
+# expect return code 200 (OK)
+# expect both singles in response body
+
+
+### read one entity by ID
+GET {{baseUrl}}/singles/2 HTTP/1.1
+
+# expect in response body the entity with ID=2
+# { "id": 2, "name": "Example Two"}
+
+
+### read one entity by ID - FAILS - no body
+GET {{baseUrl}}/singles/99 HTTP/1.1
+
+# expect return code 404 - Not Found
+# { "timestamp": "2099-12-31T12:00:00.000+00:00",
+#   "status": 404,
+#   "error": "Not Found",
+#   "path": "/api/singles/99"
+# }
+
+
+### update one entity by ID
+PUT {{baseUrl}}/singles/2 HTTP/1.1
+content-type: application/json
+
+{"name":"Example 2"}
+
+# expect return code 200 (OK)
+# expect entity with ID=2 in response body
+# name has been changed to "Example 2", the rest of values are unchanged
+
+
+### validate entity creation
+POST {{baseUrl}}/singles HTTP/1.1
+content-type: application/json
+
+{
+    "name": "",
+}
+
+# expect
+# HTTP/1.1 406 
+# Content-Type: application/problem+json
+# Transfer-Encoding: chunked
+# Date: Tue, 28 Mar 2023 15:55:32 GMT
+# Connection: close
+
+# {
+#   "type": "singles/request-not-valid",
+#   "name": "Not Acceptable",
+#   "status": 406,
+#   "detail": "Validation failed for argument [0] in public org.springframework.http.ResponseEntity<singles.model.entityDto> singles.controller.singlesController.createentity(singles.model.entityCreateCommand,org.springframework.web.util.UriComponentsBuilder): [Field error in object 'entityCreateCommand' on field 'name': rejected value []; codes [NotBlank.entityCreateCommand.name,NotBlank.name,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [entityCreateCommand.name,name]; arguments []; default message [name]]; default message [name can not be blank]] ",
+#   "instance": "/api/singles",
+#   "properties": {
+#     "violations": [
+#       {
+#         "field": "name",
+#         "message": "name can not be blank"
+#       }
+#     ]
+#   }
+# }
+
+
+### delete one entity by ID
+DELETE  {{baseUrl}}/singles/2 HTTP/1.1
+
+
+### delete not existing entity by ID
+DELETE  {{baseUrl}}/singles/99 HTTP/1.1

@@ -1,0 +1,37 @@
+### Create gardener
+
+POST http://localhost:8080/api/gardeners
+Content-Type: application/json
+
+{
+  "name": "John Doe"
+}
+
+### List gardeners
+
+GET http://localhost:8080/api/gardeners
+
+### Create gardenwork
+
+POST http://localhost:8080/api/gardeners/1/gardenworks
+Content-Type: application/json
+
+{
+  "description": "Do the gardening in my garden."
+}
+
+### List gardenworks
+
+GET http://localhost:8080/api/gardeners/1/gardenworks
+
+### Answer gardenwork
+PUT http://localhost:8080/api/gardeners/1/gardenworks/1/answer
+Content-Type: application/json
+
+{
+  "answerText": "I have done it."
+}
+
+### Lekérdezés
+GET http://localhost:8080/api/pairs
+

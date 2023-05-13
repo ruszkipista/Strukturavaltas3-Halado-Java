@@ -1,0 +1,31 @@
+### get schools with name part
+GET http://localhost:8080/api/schools?city=miskolc
+Accept: application/json
+
+
+### list student of a school
+POST http://localhost:8080/api/schools/96/students
+Content-Type: application/json
+
+{
+  "name": "Jack",
+  "dateOfBirth": "2006-06-25"
+}
+
+
+### create school
+POST http://localhost:8080/api/schools
+Content-Type: application/json
+
+{
+  "name": "Radnóti Miklós School",
+  "postalCode": "8000",
+  "city": "Miskolc",
+  "street": "Radnóti M.",
+  "houseNumber": 7
+}
+
+
+### expell student from school
+PUT http://localhost:8080/api/schools/31/students/2
+Content-Type: application/json
