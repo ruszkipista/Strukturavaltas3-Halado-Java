@@ -233,4 +233,4 @@
 
 ### Záróvizsga
 
-* [ ] [záróvizsga](https://github.com/Strukturavaltas3-Halado-Java/java-sv3-adv-exam-OroszIstvan)
+* [X] [záróvizsga](/labs-solutions/exam71/)
