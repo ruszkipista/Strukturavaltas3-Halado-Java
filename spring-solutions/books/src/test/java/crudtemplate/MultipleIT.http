@@ -29,5 +29,9 @@ content-type: application/json
   "name": "Ketto"
 }
 
+### Connect
+PUT http://localhost:8080/api/multiples/2/singles/1
+
+
 ### Delete
 DELETE http://localhost:8080/api/multiples/2

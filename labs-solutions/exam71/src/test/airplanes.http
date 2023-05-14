@@ -14,6 +14,16 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8080/api/airplanes/1/routes
+Content-Type: application/json
+
+{
+  "departureCity": "New York",
+  "arrivalCity": "Budapest",
+  "dateOfFlight": "2023-06-16"
+}
+
+###
 POST http://localhost:8080/api/airplanes
 Content-Type: application/json
 

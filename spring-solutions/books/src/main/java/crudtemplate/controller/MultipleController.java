@@ -72,6 +72,16 @@ public class MultipleController {
         MultipleDto entityDto = service.updateMultipleById(id, command);
         return ResponseEntity.ok(entityDto);
     }
+
+    @PutMapping("{multipleId}/singles/{singleId}")
+    public ResponseEntity<MultipleDto> connectMultipleToSingleById(
+            @PathVariable("multipleId") 
+            long multipleId,
+            @PathVariable("singleId") 
+            long singleId) {
+        MultipleDto entityDto = service.connectMultipleToSingle(multipleId, singleId);
+        return ResponseEntity.ok(entityDto);
+    }
     
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

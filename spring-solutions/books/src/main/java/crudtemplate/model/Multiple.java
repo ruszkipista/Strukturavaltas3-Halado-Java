@@ -33,8 +33,4 @@ public class Multiple {
     @JsonBackReference
     private Single single;
 
-    public Multiple(String name, Single single) {
-        this(null, name, single);
-    }
-
 }

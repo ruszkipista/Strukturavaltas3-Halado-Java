@@ -39,11 +39,6 @@ public class Single {
     @OneToMany(mappedBy = "single")
     @JsonManagedReference
     private List<Multiple> multiples = new ArrayList<>();
-    
-
-    public Single(String name, EnumeratedType enumType, List<Multiple> multiples) {
-        this(null, name, enumType, multiples);
-    }
 
     public void addMultiple(Multiple multiple) {
         multiples.add(multiple);

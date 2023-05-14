@@ -7,45 +7,57 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import crudtemplate.exception.MultipleNotFoundException;
+import crudtemplate.exception.SingleNotFoundException;
 import crudtemplate.model.CreateMultipleCommand;
 import crudtemplate.model.Multiple;
 import crudtemplate.model.MultipleDto;
 import crudtemplate.model.MultipleMapper;
+import crudtemplate.model.Single;
 import crudtemplate.model.UpdateMultipleCommand;
 import crudtemplate.repository.MultipleRepository;
+import crudtemplate.repository.SingleRepository;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class MultipleService {
-    private MultipleRepository repo;
+    private MultipleRepository repoMultiple;
+    private SingleRepository repoSingle;
     private MultipleMapper mapper;
 
     public List<MultipleDto> getMultiples(Optional<String> namePrefix) {
-        return this.mapper.toDto(repo.findAllByNamePart(namePrefix));
+        return this.mapper.toDto(repoMultiple.findAllByNamePart(namePrefix));
     }
 
     public MultipleDto getMultipleById(long id) {
-        return this.mapper.toDto(repo.findById(id)
+        return this.mapper.toDto(repoMultiple.findById(id)
                                      .orElseThrow(()->new MultipleNotFoundException(id)));
     }
     
     public MultipleDto createMultiple(CreateMultipleCommand command) {
-        Multiple entity = repo.save(this.mapper.fromCreateCommand(command));
+        Multiple entity = repoMultiple.save(this.mapper.fromCreateCommand(command));
         return this.mapper.toDto(entity);
     }
 
     @Transactional
     public MultipleDto updateMultipleById(long id, UpdateMultipleCommand command) {
-        Multiple entity = repo.findById(id)
+        Multiple entity = repoMultiple.findById(id)
                          .orElseThrow(()->new MultipleNotFoundException(id));
         entity.setName(command.getName());
         return this.mapper.toDto(entity);
     }
 
     @Transactional
+    public MultipleDto connectMultipleToSingle(long multipleId, long singleId) {
+        Multiple multiple = repoMultiple.findById(multipleId).orElseThrow(()->new MultipleNotFoundException(multipleId));
+        Single single = repoSingle.findById(singleId).orElseThrow(()->new SingleNotFoundException(singleId));
+        multiple.setSingle(single);
+        return mapper.toDto(multiple);
+    }
+
+    @Transactional
     public void removeMultipleById(long id) {
-        repo.findById(id).orElseThrow(()->new MultipleNotFoundException(id));
-        repo.deleteById(id);
+        repoMultiple.findById(id).orElseThrow(()->new MultipleNotFoundException(id));
+        repoMultiple.deleteById(id);
     }
 }

@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MultipleDto {
+public class MultipleWithoutSingleDto {
     private Long id;
     private String name;
-    private SingleWithoutMultiplesDto single;
 }

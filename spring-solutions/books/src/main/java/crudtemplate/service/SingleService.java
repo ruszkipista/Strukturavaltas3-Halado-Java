@@ -12,32 +12,34 @@ import crudtemplate.model.Single;
 import crudtemplate.model.SingleDto;
 import crudtemplate.model.SingleMapper;
 import crudtemplate.model.UpdateSingleCommand;
+import crudtemplate.repository.MultipleRepository;
 import crudtemplate.repository.SingleRepository;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class SingleService {
-    private SingleRepository repo;
+    private SingleRepository repoSingle;
+    private MultipleRepository repoMultiple;
     private SingleMapper mapper;
 
     public List<SingleDto> getSingles(Optional<String> namePrefix) {
-        return this.mapper.toDto(repo.findAllByNamePart(namePrefix));
+        return this.mapper.toDto(repoSingle.findAllByNamePart(namePrefix));
     }
 
     public SingleDto getSingleById(long id) {
-        return this.mapper.toDto(repo.findById(id)
+        return this.mapper.toDto(repoSingle.findById(id)
                                      .orElseThrow(()->new SingleNotFoundException(id)));
     }
     
     public SingleDto createSingle(CreateSingleCommand command) {
-        Single entity = repo.save(this.mapper.fromCreateCommand(command));
+        Single entity = repoSingle.save(this.mapper.fromCreateCommand(command));
         return this.mapper.toDto(entity);
     }
 
     @Transactional
     public SingleDto updateSingleById(long id, UpdateSingleCommand command) {
-        Single entity = repo.findById(id)
+        Single entity = repoSingle.findById(id)
                          .orElseThrow(()->new SingleNotFoundException(id));
         entity.setName(command.getName());
         entity.setEnumType(command.getEnumType());
@@ -46,7 +48,8 @@ public class SingleService {
 
     @Transactional
     public void removeSingleById(long id) {
-        repo.findById(id).orElseThrow(()->new SingleNotFoundException(id));
-        repo.deleteById(id);
+        repoSingle.findById(id).orElseThrow(()->new SingleNotFoundException(id));
+        repoSingle.deleteById(id);
     }
+
 }

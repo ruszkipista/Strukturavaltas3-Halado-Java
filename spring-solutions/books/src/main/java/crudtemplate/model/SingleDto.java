@@ -13,5 +13,5 @@ public class SingleDto {
     private Long id;
     private String name;
     private EnumeratedType enumType;
-    private Set<MultipleDto> routes;
+    private Set<MultipleWithoutSingleDto> multiples;
 }
