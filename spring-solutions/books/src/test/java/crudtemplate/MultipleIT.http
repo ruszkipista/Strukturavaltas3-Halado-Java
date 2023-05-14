@@ -1,0 +1,33 @@
+
+### Create
+POST http://localhost:8080/api/multiples
+Content-Type: application/json
+
+{
+  "name": "Uno"
+}
+
+### Create
+POST http://localhost:8080/api/multiples
+Content-Type: application/json
+
+{
+  "name": "Dos"
+}
+
+### Get Many
+GET http://localhost:8080/api/multiples
+
+### Get One
+GET http://localhost:8080/api/multiples/2
+
+### Update
+PUT http://localhost:8080/api/multiples/2
+content-type: application/json
+
+{
+  "name": "Ketto"
+}
+
+### Delete
+DELETE http://localhost:8080/api/multiples/2
