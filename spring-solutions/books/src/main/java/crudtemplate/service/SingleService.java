@@ -21,11 +21,8 @@ public class SingleService {
     private SingleRepository repo;
     private SingleMapper mapper;
 
-    public List<SingleDto> getSingles(Optional<String> prefix) {
-        if (prefix.isEmpty()) {
-            return this.mapper.toDto(repo.findAll());
-        }
-        return this.mapper.toDto(repo.findAllByNamePart(prefix.get()));
+    public List<SingleDto> getSingles(Optional<String> namePrefix) {
+        return this.mapper.toDto(repo.findAllByNamePart(namePrefix));
     }
 
     public SingleDto getSingleById(long id) {

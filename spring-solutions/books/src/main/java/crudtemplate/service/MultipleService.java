@@ -21,11 +21,8 @@ public class MultipleService {
     private MultipleRepository repo;
     private MultipleMapper mapper;
 
-    public List<MultipleDto> getMultiples(Optional<String> prefix) {
-        if (prefix.isEmpty()) {
-            return this.mapper.toDto(repo.findAll());
-        }
-        return this.mapper.toDto(repo.findAllByNamePart(prefix.get()));
+    public List<MultipleDto> getMultiples(Optional<String> namePrefix) {
+        return this.mapper.toDto(repo.findAllByNamePart(namePrefix));
     }
 
     public MultipleDto getMultipleById(long id) {
