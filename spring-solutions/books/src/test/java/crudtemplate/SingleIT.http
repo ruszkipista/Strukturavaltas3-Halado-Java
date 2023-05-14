@@ -1,0 +1,36 @@
+
+### Create
+POST http://localhost:8080/api/singles
+Content-Type: application/json
+
+{
+  "name": "One",
+  "enumType": "ONE"
+}
+
+### Create
+POST http://localhost:8080/api/singles
+Content-Type: application/json
+
+{
+  "name": "Two",
+  "enumType": "TWO"
+}
+
+### Get Many
+GET http://localhost:8080/api/singles
+
+### Get One
+GET http://localhost:8080/api/singles/1
+
+### Update
+PUT http://localhost:8080/api/singles/1
+content-type: application/json
+
+{
+  "name": "Ketto",
+  "enumType": "TWO"
+}
+
+### Delete
+DELETE http://localhost:8080/api/singles/2

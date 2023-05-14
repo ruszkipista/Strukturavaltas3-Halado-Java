@@ -14,9 +14,17 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(SingleNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ProblemDetail resourceNotFound(Exception e){
+    public ProblemDetail resourceNotFound(SingleNotFoundException e){
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problem.setType(URI.create("singles/entity-not-found"));
+        return problem;
+    }
+
+    @ExceptionHandler(MultipleNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ProblemDetail resourceNotFound(MultipleNotFoundException e){
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problem.setType(URI.create("multiples/entity-not-found"));
         return problem;
     }
 

@@ -11,7 +11,7 @@ import crudtemplate.model.Single;
 @Repository
 public interface SingleRepository extends JpaRepository<Single, Long> {
 
-    @Query("SELECT w FROM Single w WHERE LOCATE(UPPER(:part), UPPER(w.name)) > 0")
+    @Query("SELECT s FROM Single s WHERE LOCATE(UPPER(:part), UPPER(s.name)) > 0")
     List<Single> findAllByNamePart(String part);
  
 }

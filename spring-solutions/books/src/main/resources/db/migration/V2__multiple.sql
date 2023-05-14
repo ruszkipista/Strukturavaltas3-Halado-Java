@@ -7,8 +7,8 @@ CREATE TABLE multiples (
 );
 
 -- ALTER TABLE IF EXISTS single 
---   ADD department_id bigint;
+--   ADD multiple_id bigint;
 
--- ALTER TABLE IF EXISTS workers
---   ADD CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES departments (id);
+-- ALTER TABLE IF EXISTS multiples
+--   ADD CONSTRAINT fk_single FOREIGN KEY (single_id) REFERENCES singles (id);
 

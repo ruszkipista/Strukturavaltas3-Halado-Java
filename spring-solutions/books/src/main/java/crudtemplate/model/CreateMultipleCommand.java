@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor 
-public class CreateSingleCommand {
+public class CreateMultipleCommand {
     
     @NotBlank(message = "name can not be blank")
     private String name;
-    private EnumeratedType enumType;
 }
 

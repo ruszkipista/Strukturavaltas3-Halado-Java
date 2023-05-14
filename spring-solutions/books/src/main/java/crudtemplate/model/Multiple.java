@@ -31,7 +31,7 @@ public class Multiple {
     @ManyToOne
     @JoinColumn(name = "single_id")
     @JsonBackReference
-    Single single;
+    private Single single;
 
     public Multiple(String name, Single single) {
         this(null, name, single);

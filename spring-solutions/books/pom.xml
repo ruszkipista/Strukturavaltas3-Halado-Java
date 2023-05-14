@@ -13,7 +13,7 @@
 	<artifactId>crudtemplate-springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>crudtemplate</name>
-	<description>CRUD template project with Spring Boot</description>
+	<description>One to Many CRUD template with Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
