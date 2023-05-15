@@ -2,6 +2,7 @@ CREATE TABLE multiples (
     id                BIGINT AUTO_INCREMENT NOT NULL,
     name              VARCHAR(255)          NOT NULL,
     single_id         BIGINT                NULL,
+    when_happened     DATE                  NOT NULL,
     CONSTRAINT pk_multiples PRIMARY KEY (id),
     FOREIGN KEY (single_id) REFERENCES singles (id)
 );

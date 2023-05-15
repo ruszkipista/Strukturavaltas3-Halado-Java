@@ -1,5 +1,7 @@
 package crudtemplate.model;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -27,6 +29,10 @@ public class Multiple {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "when_happened")
+    private LocalDate whenHappened;
+
 
     @ManyToOne
     @JoinColumn(name = "single_id")

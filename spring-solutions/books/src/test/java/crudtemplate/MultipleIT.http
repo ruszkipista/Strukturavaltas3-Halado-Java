@@ -4,7 +4,8 @@ POST http://localhost:8080/api/multiples
 Content-Type: application/json
 
 {
-  "name": "Uno"
+  "name": "Uno",
+  "whenHappened": "2023-05-01"
 }
 
 ### Create
@@ -12,7 +13,8 @@ POST http://localhost:8080/api/multiples
 Content-Type: application/json
 
 {
-  "name": "Dos"
+  "name": "Dos",
+  "whenHappened": "2023-05-02"
 }
 
 ### Get Many
@@ -26,11 +28,12 @@ PUT http://localhost:8080/api/multiples/2
 content-type: application/json
 
 {
-  "name": "Ketto"
+  "name": "Ketto",
+  "whenHappened": "2023-05-02"
 }
 
 ### Connect
-PUT http://localhost:8080/api/multiples/2/singles/1
+PUT http://localhost:8080/api/multiples/1/singles/2
 
 
 ### Delete
