@@ -1,8 +1,10 @@
-package crudtemplate.model;
+package crudtemplate.dto;
 
 import java.util.List;
 
 import org.mapstruct.Mapper;
+
+import crudtemplate.model.Single;
 
 @Mapper(componentModel = "spring")
 public interface SingleMapper {

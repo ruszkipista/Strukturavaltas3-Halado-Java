@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import crudtemplate.model.CreateMultipleCommand;
-import crudtemplate.model.MultipleDto;
-import crudtemplate.model.UpdateMultipleCommand;
+import crudtemplate.dto.CreateMultipleCommand;
+import crudtemplate.dto.MultipleDto;
+import crudtemplate.dto.UpdateMultipleCommand;
 import crudtemplate.service.MultipleService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

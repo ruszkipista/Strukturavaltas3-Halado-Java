@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import crudtemplate.model.CreateSingleCommand;
-import crudtemplate.model.SingleDto;
-import crudtemplate.model.UpdateSingleCommand;
+import crudtemplate.dto.CreateSingleCommand;
+import crudtemplate.dto.SingleDto;
+import crudtemplate.dto.UpdateSingleCommand;
 import crudtemplate.service.SingleService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

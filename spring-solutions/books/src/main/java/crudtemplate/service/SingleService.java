@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import crudtemplate.dto.CreateSingleCommand;
+import crudtemplate.dto.SingleDto;
+import crudtemplate.dto.SingleMapper;
+import crudtemplate.dto.UpdateSingleCommand;
 import crudtemplate.exception.SingleNotFoundException;
-import crudtemplate.model.CreateSingleCommand;
 import crudtemplate.model.Single;
-import crudtemplate.model.SingleDto;
-import crudtemplate.model.SingleMapper;
-import crudtemplate.model.UpdateSingleCommand;
 import crudtemplate.repository.MultipleRepository;
 import crudtemplate.repository.SingleRepository;
 import lombok.AllArgsConstructor;

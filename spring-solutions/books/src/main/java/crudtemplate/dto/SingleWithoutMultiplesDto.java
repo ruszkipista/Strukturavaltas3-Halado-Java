@@ -1,5 +1,6 @@
-package crudtemplate.model;
+package crudtemplate.dto;
 
+import crudtemplate.model.EnumeratedType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
