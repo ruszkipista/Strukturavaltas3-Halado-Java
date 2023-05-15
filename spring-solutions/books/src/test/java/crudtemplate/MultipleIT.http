@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### Create
-POST http://localhost:8080/api/multiples
+POST http://localhost:8080/api/singles/3/multiples
 Content-Type: application/json
 
 {

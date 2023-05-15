@@ -34,9 +34,13 @@ public class MultipleService {
                                      .orElseThrow(()->new MultipleNotFoundException(id)));
     }
     
-    public MultipleDto createMultiple(CreateMultipleCommand command) {
-        Multiple entity = repoMultiple.save(this.mapper.fromCreateCommand(command));
-        return this.mapper.toDto(entity);
+    @Transactional
+    public MultipleDto createMultiple(long singleId, CreateMultipleCommand command) {
+        Single single = repoSingle.findById(singleId).orElseThrow(()->new SingleNotFoundException(singleId));
+        Multiple entityToSave = this.mapper.fromCreateCommand(command);
+        entityToSave.setSingle(single);
+        Multiple entitySaved = repoMultiple.save(entityToSave);
+        return this.mapper.toDto(entitySaved);
     }
 
     @Transactional

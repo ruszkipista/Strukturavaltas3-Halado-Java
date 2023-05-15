@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import crudtemplate.dto.CreateMultipleCommand;
 import crudtemplate.dto.CreateSingleCommand;
+import crudtemplate.dto.MultipleDto;
 import crudtemplate.dto.SingleDto;
 import crudtemplate.dto.UpdateSingleCommand;
+import crudtemplate.service.MultipleService;
 import crudtemplate.service.SingleService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -30,20 +33,21 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/api/singles")
 public class SingleController {
-    private SingleService service;
+    private SingleService serviceSingle;
+    private MultipleService serviceMultiple;
 
     @GetMapping
     public List<SingleDto> listSingles(
             @RequestParam 
             Optional<String> part) {
-        return service.getSingles(part);
+        return serviceSingle.getSingles(part);
     }
 
     @GetMapping(value = "{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<SingleDto> getSingleById(
             @PathVariable("id") 
             long id) {
-        return ResponseEntity.ok(service.getSingleById(id));
+        return ResponseEntity.ok(serviceSingle.getSingleById(id));
     }
 
     @PostMapping
@@ -52,9 +56,27 @@ public class SingleController {
             @RequestBody 
             CreateSingleCommand command,
             UriComponentsBuilder uriComponentsBuilder ) {
-        SingleDto entityDto = service.createSingle(command);
+        SingleDto entityDto = serviceSingle.createSingle(command);
         URI locationUri = uriComponentsBuilder
             .path("/api/singles/{id}")
+            .buildAndExpand(entityDto.getId())
+            .toUri();
+        return ResponseEntity
+            .created(locationUri)
+            .body(entityDto);
+    }
+
+    @PostMapping("{id}/multiples")
+    public ResponseEntity<MultipleDto> createMultiple(
+            @PathVariable("id") 
+            long id,
+            @Valid 
+            @RequestBody 
+            CreateMultipleCommand command,
+            UriComponentsBuilder uriComponentsBuilder ) {
+        MultipleDto entityDto = serviceMultiple.createMultiple(id, command);
+        URI locationUri = uriComponentsBuilder
+            .path("/api/multiples/{id}")
             .buildAndExpand(entityDto.getId())
             .toUri();
         return ResponseEntity
@@ -69,7 +91,7 @@ public class SingleController {
             @Valid 
             @RequestBody 
             UpdateSingleCommand command) {
-        SingleDto entityDto = service.updateSingleById(id, command);
+        SingleDto entityDto = serviceSingle.updateSingleById(id, command);
         return ResponseEntity.ok(entityDto);
     }
     
@@ -78,7 +100,7 @@ public class SingleController {
     public void deleteSingleById(
             @PathVariable("id") 
             long singleId) {
-        service.removeSingleById(singleId);
+        serviceSingle.removeSingleById(singleId);
     }
 
 }
