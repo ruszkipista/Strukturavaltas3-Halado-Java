@@ -1,0 +1,36 @@
+POST http://localhost:8080/api/students
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "school": {
+    "schoolName": "Petofi Sandor Altalanos Iskola",
+    "city": "Budapest"
+  }
+}
+
+###
+POST http://localhost:8080/api/students/16/tests
+Content-Type: application/json
+
+{
+  "subject": "Biology",
+  "maxPoint":120,
+  "actualPoint":111
+}
+
+###
+GET http://localhost:8080/api/students/16/tests
+
+###
+GET http://localhost:8080/api/students/12/tests?subject=Biology
+
+###
+PUT http://localhost:8080/api/students/11
+Content-Type: application/json
+
+{
+  "schoolName": "Radnoti Miklos Altalanos Iskola",
+  "city": "Veszprem"
+}
+
